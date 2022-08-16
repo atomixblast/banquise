@@ -1,0 +1,39 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block page_title %}
+    Modifier
+{% endblock %}
+
+{% block content %}
+<div class="has-background-white p-2">
+    <form method="post" enctype="multipart/form-data" action="{% url 'blog:edit_article' article.id article.slug %}">
+        {% csrf_token %}
+        <div class="columns">
+            <div class="column is-3">
+                {% for field in form %}
+                    {% if field.name != 'body' %}
+                <div class="field">
+                    {% if field.errors %}
+                        {{ field.errors }}
+                    {% endif %}
+                    <label class="label">{{ field.label }}</label>
+                    <div class="control">
+                        {{ field }}
+                    </div>
+                </div>
+                    {% endif %}
+                {% endfor %}
+                <button type="submit" class="button is-info is-fullwidth">Modifier l'article</button>
+            </div>
+            <div class="column">
+                <div class="block">
+                    <span class="title">Corps de l'article</span>
+                </div>
+                {{ form.media }}
+                {{ form.body }}
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

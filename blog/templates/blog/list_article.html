@@ -1,0 +1,58 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block page_title %}
+    Tous les articles
+{% endblock %}
+
+{% block navbar_item %}
+    {% include 'blog/layouts/navbar_item.html' %}
+{% endblock %}
+
+{% block aside %}
+    {% include 'blog/layouts/category_aside.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="pr-6 mr-6">
+    <h1 class="title is-3 columns my-6 ml-1">Tous les articles</h1>
+    {% for article in articles %}
+    <article class="mb-4" style="box-shadow: 0px 0px 2px grey">
+        <div class="card-content">
+            <div class="media">
+                 <a href="{% url 'blog:detail' article.slug %}">
+                <figure class="media-left">
+                    <p class="image is-128x128">
+                        {% if article.photo.url %}
+                        <img src="{{ article.photo.url }}">
+                        {% endif %}
+                    </p>
+                </figure>
+                 </a>
+                <div class="media-content">
+                    <div class="content">
+                        <a href="{% url 'blog:detail' article.slug %}">
+                            <h2  class="subtitle is-4 mb-1">{{ article.title|capfirst }}</h2>
+                            <p class="has-text-black is-size-5">{{ article.content|truncatewords:40 }}</p>
+                        </a>
+
+                        <div class="level">
+                            <span class="level-left has-text-grey">Publié le {{ article.pub_date }}</span>
+                            <span class="level-right has-text-danger">
+                                {% for category in article.categories.all %}
+                                    @{{ category.category_name }}
+                                {% endfor %}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block footer %}
+    {% include 'blog/layouts/footer.html' %}
+{% endblock %}

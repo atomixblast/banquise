@@ -1,0 +1,23 @@
+<footer class="footer">
+    <div class="columns">
+        <div class="column is-4">
+            <h1 class="title">Laisser nous un message</h1>
+            <form method="post" action="{% url 'blog:mail_send' %}">
+                {% csrf_token %}
+                <div class="content has-text-centered">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" type="email" name="from_email" placeholder="email">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <textarea class="textarea" name="message" placeholder="Message"></textarea>
+                        </div>
+                    </div>
+                    <button class="button is-link">Envoyer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion</title>
+</head>
+<body>
+    {% if error %}
+    <p>Nom d'utilisateur ou mot de passe invalide</p>
+    {% endif %}
+    <form action="{% url 'blog:sign_in' %}" method="post">
+        {% csrf_token %}
+        <div>
+            <label>Nom d'utilisateur</label>
+            <input type="text" name="username">
+        </div>
+        <div>
+            <label>Mot de passe</label>
+            <input type="password" name="password">
+        </div>
+        <button type="submit">Me connecter</button>
+        <input type="hidden" name="next" value="{{ next }}">
+    </form>
+    <a href="{% url 'blog:reset_password' %}">Mot de passe oublié</a>
+<script>
+
+</script>
+</body>
+</html>

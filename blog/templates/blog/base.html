@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/bulma.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/all.css' %}">
+    <link rel="icon" href="{% static 'blog/ours-polaire.png' %}">
+    {% block css %}{% endblock %}
+    <title>{% block page_title %}Blog{% endblock %}</title>
+</head>
+<body class="">
+    <nav class="navbar has-shadow" role="navigation" aria-label="main navigation"  style="position:sticky; top:0px">
+        <div class="container">
+            <div class="navbar-brand">
+                <a class="navbar-item title">
+                    <img src="{% static 'blog/ours-polaire.png' %}">
+                    <h1>BanQuise</h1>
+                </a>
+                <a class="navbar-burger" role="button" aria-label="menu" aria-expanded="false" data-target="navbarContent">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+            <div class="navbar-menu" id="navbarContent">
+                <div class="navbar-start" style="margin-left:auto">
+                    {% block navbar_item %}{% endblock %}
+                </div>
+                <div class="navbar-end" style="margin-left:0">
+                    <div class="navbar-item">
+                        {% if not user.is_authenticated %}
+                        <div class="buttons">
+                            <a class="button is-info" href="{% url 'blog:sign_in' %}">me connecter</a>
+                        </div>
+                        {% else %}
+                        <div class="buttons">
+                            <a class="button" href="{% url 'blog:dashboard' %}">
+                                <span class="icon-text">
+                                  <span class="icon">
+                                    <i class="fas fa-user-circle"></i>
+                                  </span>
+                                  <span>{{ user|capfirst }}</span>
+                                </span>
+                            </a>
+                            <a class="button is-danger" href="{% url 'blog:logout' %}">me deconnecter</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div id="root">
+    <div class="columns">
+        {% block aside %}{% endblock %}
+        <div class="column">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+    </div>
+    {% block footer %}{% endblock %}
+    {% block js %}{% endblock %}
+</body>
+</html>
+

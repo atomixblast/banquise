@@ -1,0 +1,66 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block page_title %}
+    {{ article.title|capfirst }}
+{% endblock %}
+
+{% block navbar_item %}
+    {% include 'blog/layouts/navbar_item.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="title is-3 mb-5">{{ article.title|title }}</h1>
+    <div class="is-size-6 m-5">{{ article.body|safe }}</div>
+
+    <div class="block mt-5" style="width:35%">
+        <h2 class="subtitle is-5">Laissez nous un commentaire</h2>
+        <form method="post" action="{% url 'blog:detail' article.slug %}">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="field">
+                <label class="label">{{ field.label }}</label>
+                <div class="control">
+                    {{ field }}
+                </div>
+            </div>
+            {% endfor %}
+            <button class="button is-info">Commenter</button>
+        </form>
+    </div>
+    <div class="block" style="width:35%">
+        <h2 class="subtitle is-4">Commentaires</h2>
+        {% if article.comment_set.count %}
+        {% for comment in article.comment_set.all %}
+        <div class="block">
+            <div>
+                <p class="is-size-5 has-text-left">{{ comment.pseudo|capfirst }}</p>
+                <p class="subtitle is-6 has-text-left">{{ comment.comment_date }}</p>
+            </div>
+            <p class="mt-1">{{ comment.message }}</p>
+            <div>
+                <a href="{% url 'blog:sub_comment' comment.id comment.pseudo %}" class="mr-3">Répondre</a>
+            </div>
+            <div class="ml-2">
+                {% if comment.subcomment_set.count  %}
+
+                    {% for subcomment in comment.subcomment_set.all %}
+                    <div class="ml-3">
+                        <div>
+                            <p class="is-size-5 has-text-left">{{ subcomment.pseudo|capfirst }}</p>
+                            <p class="subtitle is-6 has-text-left">{{ subcomment.comment_date }}</p>
+                        </div>
+                        <p class="mt-1">{{ subcomment.message }}</p>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>Aucun commentaire</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

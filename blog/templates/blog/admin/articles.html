@@ -1,0 +1,62 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="has-background-white container mt-5">
+    <h1 class="title is-2 has-text-centered">Gestion d'articles</h1>
+    <div>
+        <div class="columns">
+            {% for article in articles %}
+            <article class="column mx-2 is-4 p-0" style="box-shadow: 0px 0px 2px grey">
+                <div class="card-content px-0">
+                    <div class="media">
+                        <figure class="media-left">
+                            <p class="image is-64x64">
+                                <img src="{% static 'blog/new_article.svg' %}">
+                            </p>
+                        </figure>
+                        <div class="media-content">
+                            <div class="content">
+                                <h2  class="has-text-link is-size-6">{{ article.title|capfirst }}</h2>
+                                <div class="level">
+                                    <span class="level-left has-text-grey">Etat :
+                                        {% if article.published %}
+                                         <span class="has-text-primary">Publié {{ article.pub_date }}</span>
+                                        {% else %}
+                                        <span class="has-text-warning"> En cours d'édition</span>
+                                        {% endif %}
+                                    </span>
+<!--                                    <a class="button is-info is-small" href="{% url 'blog:edit_article' article.id article.slug %}">Editer</a>-->
+<!--                                    <a class="button is-danger is-small" href="{% url 'blog:delete_article' article.id %}">Supprimer</a>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+             {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Liste d'articles</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <h1>Mes articles</h1>-->
+<!--    {% for article in articles %}-->
+<!--    <h4>-->
+<!--        {{ article.title }}  |-->
+<!--        <a href="{% url 'blog:edit_article' article.id article.slug %}">Editer</a> |-->
+<!--        <a href="{% url 'blog:delete_article' article.id %}">Supprimer</a> |-->
+<!--        <a href="">Publier</a> |-->
+<!--    </h4>-->
+<!--    {% endfor %}-->
+<!--</body>-->
+<!--</html>-->

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>commenter</title>
+</head>
+<body>
+  <div class="block mt-5" style="width:35%">
+       <p class="mt-1">{{ comment.message }}</p>
+        <h2 class="subtitle is-4">Répondre</h2>
+        <form method="post" action="{% url 'blog:sub_comment' comment.id comment.pseudo %}">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="field">
+                <label class="label">{{ field.label }}</label>
+                <div class="control">
+                    {{ field }}
+                </div>
+            </div>
+            {% endfor %}
+            <button class="button is-info">Répondre</button>
+        </form>
+    </div>
+</body>
+</html>

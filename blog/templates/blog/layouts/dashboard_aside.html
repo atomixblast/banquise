@@ -1,0 +1,31 @@
+<aside class="column is-3" style="height:100vh">
+    <nav class="is-info has-background-white">
+        <div class="panel-block">
+            <button>Reduire</button>
+        </div>
+        <a class="panel-block is-active" href="{% url 'blog:create_article' %}">
+            <span class="panel-icon">
+                <i class="fas fa-pen-square" aria-hidden="true"></i>
+            </span>
+            Nouvelle article
+        </a>
+        <a class="panel-block is-active" href="{% url 'blog:list_article' %}">
+            <span class="panel-icon">
+                <i class="fas fa-book" aria-hidden="true"></i>
+            </span>
+            Consulter tous mes articles
+        </a>
+        <a class="panel-block is-active" href="{% url 'blog:add_category' %}">
+            <span class="panel-icon">
+                <i class="fas fa-table" aria-hidden="true"></i>
+            </span>
+            Nouvelle categorie
+        </a>
+        <a class="panel-block is-active" href="{% url 'blog:logout' %}">
+            <span class="panel-icon">
+                <i class="fas fa-power-off" aria-hidden="true"></i>
+            </span>
+            Quitter le dashboard
+        </a>
+    </nav>
+</aside>

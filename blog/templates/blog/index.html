@@ -1,0 +1,25 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block navbar_item %}
+    {% include 'blog/layouts/navbar_item.html' %}
+{% endblock %}
+
+{% block content %}
+<section class="hero is-medium-with-navbar has-background-white">
+    <div class="hero-body container">
+        <div class="columns is-vcentered">
+            <div class="column">
+                <h1 class="title is-1">Votre blog pour tout savoir sur la banquise</h1>
+                <p class="subtitle is-4">Decouvrez les dernieres nouvelles glaciales</p>
+                <a href="{% url 'blog:all_articles' %}" class="button is-info">Découvrir tous les articles</a>
+            </div>
+            <div class="column">
+                <img src="{% static 'blog/ours_polaire.jpg' %}">
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+
